@@ -1,0 +1,3069 @@
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix lime:    <http://www.w3.org/ns/lemon/lime#> .
+@prefix vartrans:<http://www.w3.org/ns/lemon/vartrans#> .
+@prefix lexinfo: <http://www.lexinfo.net/ontology/3.0/lexinfo#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:     <http://purl.org/dc/terms/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix aslkg:   <https://w3id.org/asl-lex-kg/ontology#> .
+@prefix data:    <https://w3id.org/asl-lex-kg/resource/> .
+
+#################################################################
+# ASL-LEX KG ontology
+#################################################################
+
+<https://w3id.org/asl-lex-kg/ontology>
+    a owl:Ontology ;
+    dct:title "ASL-LEX Knowledge Graph Vocabulary"@en ;
+    dct:description "Ontology for the curated 50-entry ASL-LEX dataset. Entry IDs are OntoLex lexical entries, shared Lemma IDs are OntoLex lexical concepts evoked by entries, and phonological information is represented on OntoLex forms."@en .
+
+aslkg:SignLexicalEntry
+    a owl:Class ;
+    rdfs:label "ASL lexical entry"@en ;
+    rdfs:subClassOf ontolex:LexicalEntry .
+
+aslkg:SignForm
+    a owl:Class ;
+    rdfs:label "ASL sign form"@en ;
+    rdfs:subClassOf ontolex:Form .
+
+aslkg:SemanticField
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "ASL-LEX semantic field"@en .
+
+aslkg:SignType
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "sign type"@en .
+
+aslkg:Handshape
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "handshape"@en .
+
+aslkg:SelectedFingerConfiguration
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "selected finger configuration"@en .
+
+aslkg:ThumbPosition
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "thumb position"@en .
+
+aslkg:PathMovement
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "path movement"@en .
+
+aslkg:MajorLocation
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "major location"@en .
+
+aslkg:MinorLocation
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "minor location"@en .
+
+aslkg:NondominantHandConfigurationStatus
+    a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "nondominant hand configuration status"@en .
+
+aslkg:semanticField
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignLexicalEntry ;
+    rdfs:range aslkg:SemanticField ;
+    rdfs:label "semantic field"@en .
+
+aslkg:signType
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:SignType ;
+    rdfs:label "sign type"@en .
+
+aslkg:dominantHandshape
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:Handshape ;
+    rdfs:label "dominant handshape"@en .
+
+aslkg:nondominantHandshape
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:Handshape ;
+    rdfs:label "nondominant handshape"@en .
+
+aslkg:nondominantHandConfigurationStatus
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:NondominantHandConfigurationStatus ;
+    rdfs:label "nondominant hand configuration status"@en .
+
+aslkg:selectedFingerConfiguration
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:SelectedFingerConfiguration ;
+    rdfs:label "selected finger configuration"@en .
+
+aslkg:thumbPosition
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:ThumbPosition ;
+    rdfs:label "thumb position"@en .
+
+aslkg:pathMovement
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:PathMovement ;
+    rdfs:label "path movement"@en .
+
+aslkg:majorLocation
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:MajorLocation ;
+    rdfs:label "major location"@en .
+
+aslkg:minorLocation
+    a owl:ObjectProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range aslkg:MinorLocation ;
+    rdfs:label "minor location"@en .
+
+aslkg:numberOfSelectedFingers
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:integer ;
+    rdfs:label "number of selected fingers"@en .
+
+aslkg:indexSelected
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "index finger selected"@en .
+
+aslkg:middleSelected
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "middle finger selected"@en .
+
+aslkg:ringSelected
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "ring finger selected"@en .
+
+aslkg:pinkySelected
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "pinky finger selected"@en .
+
+aslkg:thumbSelected
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "thumb selected"@en .
+
+aslkg:repeatedMovement
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "repeated movement"@en .
+
+aslkg:contact
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "contact"@en .
+
+aslkg:frequency
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignLexicalEntry ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "frequency"@en .
+
+aslkg:nonSignerIconicity
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignLexicalEntry ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "non-signer iconicity"@en .
+
+aslkg:phonologicalComplexity
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:integer ;
+    rdfs:label "phonological complexity"@en .
+
+aslkg:neighborhoodDensity
+    a owl:DatatypeProperty ;
+    rdfs:domain aslkg:SignForm ;
+    rdfs:range xsd:integer ;
+    rdfs:label "phonological neighborhood density"@en .
+
+#################################################################
+# Controlled vocabularies
+#################################################################
+
+data:semantic-field-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX semantic fields"@en .
+data:sign-type-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX sign types"@en .
+data:handshape-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX handshapes"@en .
+data:selected-finger-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX selected finger configurations"@en .
+data:thumb-position-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX thumb positions"@en .
+data:path-movement-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX path movements"@en .
+data:major-location-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX major locations"@en .
+data:minor-location-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX minor locations"@en .
+data:nondominant-status-scheme a skos:ConceptScheme ; skos:prefLabel "ASL-LEX nondominant hand configuration statuses"@en .
+
+data:part-of-speech-minor
+    a skos:Concept ;
+    skos:prefLabel "Minor"@en ;
+    skos:notation "Minor" .
+
+#################################################################
+# Lexicons and source dataset
+#################################################################
+
+data:asl-lex-lexicon
+    a lime:Lexicon ;
+    dct:title "ASL-LEX 2.0 curated 50-entry lexicon"@en ;
+    lime:language "ase" ;
+    dct:source <https://asl-lex.org/> ;
+    lime:entry data:entry-angry,
+        data:entry-bird,
+        data:entry-boss,
+        data:entry-corn-2,
+        data:entry-dinosaur,
+        data:entry-duck,
+        data:entry-engineer,
+        data:entry-happy,
+        data:entry-inside,
+        data:entry-italy,
+        data:entry-japan,
+        data:entry-lobster,
+        data:entry-mouse,
+        data:entry-nephew,
+        data:entry-new-york,
+        data:entry-next-to,
+        data:entry-one,
+        data:entry-onion,
+        data:entry-over,
+        data:entry-philadelphia,
+        data:entry-potato,
+        data:entry-russia-2,
+        data:entry-sad,
+        data:entry-spaghetti,
+        data:entry-squirrel,
+        data:entry-straight,
+        data:entry-strawberry,
+        data:entry-strawberry-2,
+        data:entry-strong,
+        data:entry-stupid-1,
+        data:entry-stupid-2,
+        data:entry-sushi,
+        data:entry-sweep,
+        data:entry-third-1,
+        data:entry-third-2,
+        data:entry-three,
+        data:entry-tiger,
+        data:entry-twins-1,
+        data:entry-twins-2,
+        data:entry-two,
+        data:entry-under,
+        data:entry-vacuum,
+        data:entry-vegetable,
+        data:entry-waiter,
+        data:entry-wander,
+        data:entry-wet,
+        data:entry-witch,
+        data:entry-wrong-1,
+        data:entry-wrong-2,
+        data:entry-zoom-in .
+
+data:english-stub-lexicon
+    a lime:Lexicon ;
+    dct:title "Minimal English translation stubs for the ASL-LEX pilot"@en ;
+    lime:language "en" ;
+    lime:entry data:entry-angry-en,
+        data:entry-bird-en,
+        data:entry-boss-en,
+        data:entry-corn-en,
+        data:entry-dinosaur-en,
+        data:entry-duck-en,
+        data:entry-engineer-en,
+        data:entry-happy-en,
+        data:entry-inside-en,
+        data:entry-italy-en,
+        data:entry-japan-en,
+        data:entry-lobster-en,
+        data:entry-mouse-en,
+        data:entry-nephew-en,
+        data:entry-new-york-en,
+        data:entry-next-to-en,
+        data:entry-one-en,
+        data:entry-onion-en,
+        data:entry-over-en,
+        data:entry-philadelphia-en,
+        data:entry-potato-en,
+        data:entry-russia-en,
+        data:entry-sad-en,
+        data:entry-spaghetti-en,
+        data:entry-squirrel-en,
+        data:entry-straight-en,
+        data:entry-strawberry-en,
+        data:entry-strong-en,
+        data:entry-stupid-en,
+        data:entry-sushi-en,
+        data:entry-sweep-en,
+        data:entry-third-en,
+        data:entry-three-en,
+        data:entry-tiger-en,
+        data:entry-twins-en,
+        data:entry-two-en,
+        data:entry-under-en,
+        data:entry-vacuum-en,
+        data:entry-vegetable-en,
+        data:entry-waiter-en,
+        data:entry-wander-en,
+        data:entry-wet-en,
+        data:entry-witch-en,
+        data:entry-wrong-en,
+        data:entry-zoom-in-en .
+
+data:asl-lex-50-dataset
+    a prov:Entity ;
+    dct:title "ASL-LEX curated 50-entry dataset"@en ;
+    dct:source <https://asl-lex.org/> .
+
+data:concept-angry
+    a ontolex:LexicalConcept ;
+    dct:identifier "angry" ;
+    rdfs:label "angry" .
+
+data:concept-bird
+    a ontolex:LexicalConcept ;
+    dct:identifier "bird" ;
+    rdfs:label "bird" .
+
+data:concept-boss
+    a ontolex:LexicalConcept ;
+    dct:identifier "boss" ;
+    rdfs:label "boss" .
+
+data:concept-corn-2
+    a ontolex:LexicalConcept ;
+    dct:identifier "corn_2" ;
+    rdfs:label "corn_2" .
+
+data:concept-dinosaur
+    a ontolex:LexicalConcept ;
+    dct:identifier "dinosaur" ;
+    rdfs:label "dinosaur" .
+
+data:concept-duck
+    a ontolex:LexicalConcept ;
+    dct:identifier "duck" ;
+    rdfs:label "duck" .
+
+data:concept-engineer
+    a ontolex:LexicalConcept ;
+    dct:identifier "engineer" ;
+    rdfs:label "engineer" .
+
+data:concept-happy
+    a ontolex:LexicalConcept ;
+    dct:identifier "happy" ;
+    rdfs:label "happy" .
+
+data:concept-inside
+    a ontolex:LexicalConcept ;
+    dct:identifier "inside" ;
+    rdfs:label "inside" .
+
+data:concept-italy
+    a ontolex:LexicalConcept ;
+    dct:identifier "italy" ;
+    rdfs:label "italy" .
+
+data:concept-japan
+    a ontolex:LexicalConcept ;
+    dct:identifier "japan" ;
+    rdfs:label "japan" .
+
+data:concept-lobster
+    a ontolex:LexicalConcept ;
+    dct:identifier "lobster" ;
+    rdfs:label "lobster" .
+
+data:concept-mouse
+    a ontolex:LexicalConcept ;
+    dct:identifier "mouse" ;
+    rdfs:label "mouse" .
+
+data:concept-nephew
+    a ontolex:LexicalConcept ;
+    dct:identifier "nephew" ;
+    rdfs:label "nephew" .
+
+data:concept-new-york
+    a ontolex:LexicalConcept ;
+    dct:identifier "new_york" ;
+    rdfs:label "new_york" .
+
+data:concept-next-to
+    a ontolex:LexicalConcept ;
+    dct:identifier "next_to" ;
+    rdfs:label "next_to" .
+
+data:concept-one
+    a ontolex:LexicalConcept ;
+    dct:identifier "one" ;
+    rdfs:label "one" .
+
+data:concept-onion
+    a ontolex:LexicalConcept ;
+    dct:identifier "onion" ;
+    rdfs:label "onion" .
+
+data:concept-over
+    a ontolex:LexicalConcept ;
+    dct:identifier "over" ;
+    rdfs:label "over" .
+
+data:concept-philadelphia
+    a ontolex:LexicalConcept ;
+    dct:identifier "philadelphia" ;
+    rdfs:label "philadelphia" .
+
+data:concept-potato
+    a ontolex:LexicalConcept ;
+    dct:identifier "potato" ;
+    rdfs:label "potato" .
+
+data:concept-russia
+    a ontolex:LexicalConcept ;
+    dct:identifier "russia" ;
+    rdfs:label "russia" .
+
+data:concept-sad
+    a ontolex:LexicalConcept ;
+    dct:identifier "sad" ;
+    rdfs:label "sad" .
+
+data:concept-spaghetti
+    a ontolex:LexicalConcept ;
+    dct:identifier "spaghetti" ;
+    rdfs:label "spaghetti" .
+
+data:concept-squirrel
+    a ontolex:LexicalConcept ;
+    dct:identifier "squirrel" ;
+    rdfs:label "squirrel" .
+
+data:concept-straight
+    a ontolex:LexicalConcept ;
+    dct:identifier "straight" ;
+    rdfs:label "straight" .
+
+data:concept-strawberry
+    a ontolex:LexicalConcept ;
+    dct:identifier "strawberry" ;
+    rdfs:label "strawberry" .
+
+data:concept-strawberry-2
+    a ontolex:LexicalConcept ;
+    dct:identifier "strawberry_2" ;
+    rdfs:label "strawberry_2" .
+
+data:concept-strong
+    a ontolex:LexicalConcept ;
+    dct:identifier "strong" ;
+    rdfs:label "strong" .
+
+data:concept-stupid-1
+    a ontolex:LexicalConcept ;
+    dct:identifier "stupid_1" ;
+    rdfs:label "stupid_1" .
+
+data:concept-stupid-2
+    a ontolex:LexicalConcept ;
+    dct:identifier "stupid_2" ;
+    rdfs:label "stupid_2" .
+
+data:concept-sushi
+    a ontolex:LexicalConcept ;
+    dct:identifier "sushi" ;
+    rdfs:label "sushi" .
+
+data:concept-sweep
+    a ontolex:LexicalConcept ;
+    dct:identifier "sweep" ;
+    rdfs:label "sweep" .
+
+data:concept-third
+    a ontolex:LexicalConcept ;
+    dct:identifier "third" ;
+    rdfs:label "third" .
+
+data:concept-three
+    a ontolex:LexicalConcept ;
+    dct:identifier "three" ;
+    rdfs:label "three" .
+
+data:concept-tiger
+    a ontolex:LexicalConcept ;
+    dct:identifier "tiger" ;
+    rdfs:label "tiger" .
+
+data:concept-twins
+    a ontolex:LexicalConcept ;
+    dct:identifier "twins" ;
+    rdfs:label "twins" .
+
+data:concept-two
+    a ontolex:LexicalConcept ;
+    dct:identifier "two" ;
+    rdfs:label "two" .
+
+data:concept-under
+    a ontolex:LexicalConcept ;
+    dct:identifier "under" ;
+    rdfs:label "under" .
+
+data:concept-vacuum
+    a ontolex:LexicalConcept ;
+    dct:identifier "vacuum" ;
+    rdfs:label "vacuum" .
+
+data:concept-vegetable
+    a ontolex:LexicalConcept ;
+    dct:identifier "vegetable" ;
+    rdfs:label "vegetable" .
+
+data:concept-waiter
+    a ontolex:LexicalConcept ;
+    dct:identifier "waiter" ;
+    rdfs:label "waiter" .
+
+data:concept-wander
+    a ontolex:LexicalConcept ;
+    dct:identifier "wander" ;
+    rdfs:label "wander" .
+
+data:concept-wet
+    a ontolex:LexicalConcept ;
+    dct:identifier "wet" ;
+    rdfs:label "wet" .
+
+data:concept-witch
+    a ontolex:LexicalConcept ;
+    dct:identifier "witch" ;
+    rdfs:label "witch" .
+
+data:concept-wrong
+    a ontolex:LexicalConcept ;
+    dct:identifier "wrong" ;
+    rdfs:label "wrong" .
+
+data:concept-zoom-in
+    a ontolex:LexicalConcept ;
+    dct:identifier "zoom_in" ;
+    rdfs:label "zoom_in" .
+
+data:entry-angry-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-angry-en .
+
+data:form-angry-en
+    a ontolex:Form ;
+    ontolex:writtenRep "angry"@en .
+
+data:entry-bird-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-bird-en .
+
+data:form-bird-en
+    a ontolex:Form ;
+    ontolex:writtenRep "bird"@en .
+
+data:entry-boss-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-boss-en .
+
+data:form-boss-en
+    a ontolex:Form ;
+    ontolex:writtenRep "boss"@en .
+
+data:entry-corn-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-corn-en .
+
+data:form-corn-en
+    a ontolex:Form ;
+    ontolex:writtenRep "corn"@en .
+
+data:entry-dinosaur-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-dinosaur-en .
+
+data:form-dinosaur-en
+    a ontolex:Form ;
+    ontolex:writtenRep "dinosaur"@en .
+
+data:entry-duck-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-duck-en .
+
+data:form-duck-en
+    a ontolex:Form ;
+    ontolex:writtenRep "duck"@en .
+
+data:entry-engineer-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-engineer-en .
+
+data:form-engineer-en
+    a ontolex:Form ;
+    ontolex:writtenRep "engineer"@en .
+
+data:entry-happy-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-happy-en .
+
+data:form-happy-en
+    a ontolex:Form ;
+    ontolex:writtenRep "happy"@en .
+
+data:entry-inside-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-inside-en .
+
+data:form-inside-en
+    a ontolex:Form ;
+    ontolex:writtenRep "inside"@en .
+
+data:entry-italy-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-italy-en .
+
+data:form-italy-en
+    a ontolex:Form ;
+    ontolex:writtenRep "italy"@en .
+
+data:entry-japan-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-japan-en .
+
+data:form-japan-en
+    a ontolex:Form ;
+    ontolex:writtenRep "japan"@en .
+
+data:entry-lobster-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-lobster-en .
+
+data:form-lobster-en
+    a ontolex:Form ;
+    ontolex:writtenRep "lobster"@en .
+
+data:entry-mouse-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-mouse-en .
+
+data:form-mouse-en
+    a ontolex:Form ;
+    ontolex:writtenRep "mouse"@en .
+
+data:entry-nephew-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-nephew-en .
+
+data:form-nephew-en
+    a ontolex:Form ;
+    ontolex:writtenRep "nephew"@en .
+
+data:entry-new-york-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-new-york-en .
+
+data:form-new-york-en
+    a ontolex:Form ;
+    ontolex:writtenRep "new york"@en .
+
+data:entry-next-to-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-next-to-en .
+
+data:form-next-to-en
+    a ontolex:Form ;
+    ontolex:writtenRep "next to"@en .
+
+data:entry-one-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-one-en .
+
+data:form-one-en
+    a ontolex:Form ;
+    ontolex:writtenRep "one"@en .
+
+data:entry-onion-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-onion-en .
+
+data:form-onion-en
+    a ontolex:Form ;
+    ontolex:writtenRep "onion"@en .
+
+data:entry-over-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-over-en .
+
+data:form-over-en
+    a ontolex:Form ;
+    ontolex:writtenRep "over"@en .
+
+data:entry-philadelphia-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-philadelphia-en .
+
+data:form-philadelphia-en
+    a ontolex:Form ;
+    ontolex:writtenRep "philadelphia"@en .
+
+data:entry-potato-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-potato-en .
+
+data:form-potato-en
+    a ontolex:Form ;
+    ontolex:writtenRep "potato"@en .
+
+data:entry-russia-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-russia-en .
+
+data:form-russia-en
+    a ontolex:Form ;
+    ontolex:writtenRep "russia"@en .
+
+data:entry-sad-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-sad-en .
+
+data:form-sad-en
+    a ontolex:Form ;
+    ontolex:writtenRep "sad"@en .
+
+data:entry-spaghetti-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-spaghetti-en .
+
+data:form-spaghetti-en
+    a ontolex:Form ;
+    ontolex:writtenRep "spaghetti"@en .
+
+data:entry-squirrel-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-squirrel-en .
+
+data:form-squirrel-en
+    a ontolex:Form ;
+    ontolex:writtenRep "squirrel"@en .
+
+data:entry-straight-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-straight-en .
+
+data:form-straight-en
+    a ontolex:Form ;
+    ontolex:writtenRep "straight"@en .
+
+data:entry-strawberry-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-strawberry-en .
+
+data:form-strawberry-en
+    a ontolex:Form ;
+    ontolex:writtenRep "strawberry"@en .
+
+data:entry-strong-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-strong-en .
+
+data:form-strong-en
+    a ontolex:Form ;
+    ontolex:writtenRep "strong"@en .
+
+data:entry-stupid-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-stupid-en .
+
+data:form-stupid-en
+    a ontolex:Form ;
+    ontolex:writtenRep "stupid"@en .
+
+data:entry-sushi-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-sushi-en .
+
+data:form-sushi-en
+    a ontolex:Form ;
+    ontolex:writtenRep "sushi"@en .
+
+data:entry-sweep-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-sweep-en .
+
+data:form-sweep-en
+    a ontolex:Form ;
+    ontolex:writtenRep "sweep"@en .
+
+data:entry-third-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-third-en .
+
+data:form-third-en
+    a ontolex:Form ;
+    ontolex:writtenRep "third"@en .
+
+data:entry-three-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-three-en .
+
+data:form-three-en
+    a ontolex:Form ;
+    ontolex:writtenRep "three"@en .
+
+data:entry-tiger-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-tiger-en .
+
+data:form-tiger-en
+    a ontolex:Form ;
+    ontolex:writtenRep "tiger"@en .
+
+data:entry-twins-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-twins-en .
+
+data:form-twins-en
+    a ontolex:Form ;
+    ontolex:writtenRep "twins"@en .
+
+data:entry-two-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-two-en .
+
+data:form-two-en
+    a ontolex:Form ;
+    ontolex:writtenRep "two"@en .
+
+data:entry-under-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-under-en .
+
+data:form-under-en
+    a ontolex:Form ;
+    ontolex:writtenRep "under"@en .
+
+data:entry-vacuum-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-vacuum-en .
+
+data:form-vacuum-en
+    a ontolex:Form ;
+    ontolex:writtenRep "vacuum"@en .
+
+data:entry-vegetable-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-vegetable-en .
+
+data:form-vegetable-en
+    a ontolex:Form ;
+    ontolex:writtenRep "vegetable"@en .
+
+data:entry-waiter-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-waiter-en .
+
+data:form-waiter-en
+    a ontolex:Form ;
+    ontolex:writtenRep "waiter"@en .
+
+data:entry-wander-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-wander-en .
+
+data:form-wander-en
+    a ontolex:Form ;
+    ontolex:writtenRep "wander"@en .
+
+data:entry-wet-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-wet-en .
+
+data:form-wet-en
+    a ontolex:Form ;
+    ontolex:writtenRep "wet"@en .
+
+data:entry-witch-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-witch-en .
+
+data:form-witch-en
+    a ontolex:Form ;
+    ontolex:writtenRep "witch"@en .
+
+data:entry-wrong-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-wrong-en .
+
+data:form-wrong-en
+    a ontolex:Form ;
+    ontolex:writtenRep "wrong"@en .
+
+data:entry-zoom-in-en
+    a ontolex:LexicalEntry ;
+    ontolex:lexicalForm data:form-zoom-in-en .
+
+data:form-zoom-in-en
+    a ontolex:Form ;
+    ontolex:writtenRep "zoom in"@en .
+
+data:semantic-field-animal
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "Animal"@en ;
+    skos:notation "Animal" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:semantic-field-attribute
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "Attribute"@en ;
+    skos:notation "Attribute" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:semantic-field-emotion
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "Emotion"@en ;
+    skos:notation "Emotion" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:semantic-field-event
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "Event"@en ;
+    skos:notation "Event" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:semantic-field-food
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "Food"@en ;
+    skos:notation "Food" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:semantic-field-locative
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "Locative"@en ;
+    skos:notation "Locative" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:semantic-field-number
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "Number"@en ;
+    skos:notation "Number" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:semantic-field-people
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "People"@en ;
+    skos:notation "People" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:semantic-field-place
+    a aslkg:SemanticField, skos:Concept ;
+    skos:prefLabel "Place"@en ;
+    skos:notation "Place" ;
+    skos:inScheme data:semantic-field-scheme .
+
+data:sign-type-asymmetrical-different-handshape
+    a aslkg:SignType, skos:Concept ;
+    skos:prefLabel "Asymmetrical Different Handshape"@en ;
+    skos:notation "Asymmetrical Different Handshape" ;
+    skos:inScheme data:sign-type-scheme .
+
+data:sign-type-asymmetrical-same-handshape
+    a aslkg:SignType, skos:Concept ;
+    skos:prefLabel "Asymmetrical Same Handshape"@en ;
+    skos:notation "Asymmetrical Same Handshape" ;
+    skos:inScheme data:sign-type-scheme .
+
+data:sign-type-dominance-violation
+    a aslkg:SignType, skos:Concept ;
+    skos:prefLabel "Dominance Violation"@en ;
+    skos:notation "Dominance Violation" ;
+    skos:inScheme data:sign-type-scheme .
+
+data:sign-type-one-handed
+    a aslkg:SignType, skos:Concept ;
+    skos:prefLabel "One Handed"@en ;
+    skos:notation "One Handed" ;
+    skos:inScheme data:sign-type-scheme .
+
+data:sign-type-symmetrical-or-alternating
+    a aslkg:SignType, skos:Concept ;
+    skos:prefLabel "Symmetrical Or Alternating"@en ;
+    skos:notation "Symmetrical Or Alternating" ;
+    skos:inScheme data:sign-type-scheme .
+
+data:handshape-1
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "1 handshape"@en ;
+    skos:notation "1" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/1.png> .
+
+data:handshape-3
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "3 handshape"@en ;
+    skos:notation "3" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/3.png> .
+
+data:handshape-5
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "5 handshape"@en ;
+    skos:notation "5" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/5.png> .
+
+data:handshape-b
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "B handshape"@en ;
+    skos:notation "B" ;
+    skos:inScheme data:handshape-scheme .
+
+data:handshape-c
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "C handshape"@en ;
+    skos:notation "C" ;
+    skos:inScheme data:handshape-scheme .
+
+data:handshape-a
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "a handshape"@en ;
+    skos:notation "a" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/a.png> .
+
+data:handshape-baby-o
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "baby_o handshape"@en ;
+    skos:notation "baby_o" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/baby_o.png> .
+
+data:handshape-bent-1
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "bent_1 handshape"@en ;
+    skos:notation "bent_1" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/bent_1.png> .
+
+data:handshape-bent-l
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "bent_l handshape"@en ;
+    skos:notation "bent_l" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/bent_l.png> .
+
+data:handshape-bent-v
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "bent_v handshape"@en ;
+    skos:notation "bent_v" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/bent_v.png> .
+
+data:handshape-closed-b
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "closed_b handshape"@en ;
+    skos:notation "closed_b" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/closed_b.png> .
+
+data:handshape-curved-5
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "curved_5 handshape"@en ;
+    skos:notation "curved_5" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/curved_5.png> .
+
+data:handshape-curved-l
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "curved_l handshape"@en ;
+    skos:notation "curved_l" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/curved_l.png> .
+
+data:handshape-f
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "f handshape"@en ;
+    skos:notation "f" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/f.png> .
+
+data:handshape-flat-b
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "flat_b handshape"@en ;
+    skos:notation "flat_b" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/flat_b.png> .
+
+data:handshape-flat-h
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "flat_h handshape"@en ;
+    skos:notation "flat_h" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/flat_h.png> .
+
+data:handshape-flat-n
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "flat_n handshape"@en ;
+    skos:notation "flat_n" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/flat_n.png> .
+
+data:handshape-g
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "g handshape"@en ;
+    skos:notation "g" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/g.png> .
+
+data:handshape-h
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "h handshape"@en ;
+    skos:notation "h" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/h.png> .
+
+data:handshape-i
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "i handshape"@en ;
+    skos:notation "i" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/i.png> .
+
+data:handshape-o
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "o handshape"@en ;
+    skos:notation "o" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/o.png> .
+
+data:handshape-open-b
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "open_b handshape"@en ;
+    skos:notation "open_b" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/open_b.png> .
+
+data:handshape-p
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "p handshape"@en ;
+    skos:notation "p" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/p.png> .
+
+data:handshape-s
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "s handshape"@en ;
+    skos:notation "s" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/s.png> .
+
+data:handshape-v
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "v handshape"@en ;
+    skos:notation "v" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/v.png> .
+
+data:handshape-y
+    a aslkg:Handshape, skos:Concept ;
+    skos:prefLabel "y handshape"@en ;
+    skos:notation "y" ;
+    skos:inScheme data:handshape-scheme ;
+    foaf:depiction <https://aslcdi.website/images/handshape_images/y.png> .
+
+data:selected-fingers-i
+    a aslkg:SelectedFingerConfiguration, skos:Concept ;
+    skos:prefLabel "i"@en ;
+    skos:notation "i" ;
+    skos:inScheme data:selected-finger-scheme .
+
+data:selected-fingers-im
+    a aslkg:SelectedFingerConfiguration, skos:Concept ;
+    skos:prefLabel "im"@en ;
+    skos:notation "im" ;
+    skos:inScheme data:selected-finger-scheme .
+
+data:selected-fingers-imrp
+    a aslkg:SelectedFingerConfiguration, skos:Concept ;
+    skos:prefLabel "imrp"@en ;
+    skos:notation "imrp" ;
+    skos:inScheme data:selected-finger-scheme .
+
+data:selected-fingers-p
+    a aslkg:SelectedFingerConfiguration, skos:Concept ;
+    skos:prefLabel "p"@en ;
+    skos:notation "p" ;
+    skos:inScheme data:selected-finger-scheme .
+
+data:selected-fingers-t
+    a aslkg:SelectedFingerConfiguration, skos:Concept ;
+    skos:prefLabel "t"@en ;
+    skos:notation "t" ;
+    skos:inScheme data:selected-finger-scheme .
+
+data:thumb-position-closed
+    a aslkg:ThumbPosition, skos:Concept ;
+    skos:prefLabel "Closed"@en ;
+    skos:notation "Closed" ;
+    skos:inScheme data:thumb-position-scheme .
+
+data:thumb-position-open
+    a aslkg:ThumbPosition, skos:Concept ;
+    skos:prefLabel "Open"@en ;
+    skos:notation "Open" ;
+    skos:inScheme data:thumb-position-scheme .
+
+data:path-movement-back-and-forth
+    a aslkg:PathMovement, skos:Concept ;
+    skos:prefLabel "Back And Forth"@en ;
+    skos:notation "Back And Forth" ;
+    skos:inScheme data:path-movement-scheme .
+
+data:path-movement-circular
+    a aslkg:PathMovement, skos:Concept ;
+    skos:prefLabel "Circular"@en ;
+    skos:notation "Circular" ;
+    skos:inScheme data:path-movement-scheme .
+
+data:path-movement-curved
+    a aslkg:PathMovement, skos:Concept ;
+    skos:prefLabel "Curved"@en ;
+    skos:notation "Curved" ;
+    skos:inScheme data:path-movement-scheme .
+
+data:path-movement-straight
+    a aslkg:PathMovement, skos:Concept ;
+    skos:prefLabel "Straight"@en ;
+    skos:notation "Straight" ;
+    skos:inScheme data:path-movement-scheme .
+
+data:path-movement-z-shaped
+    a aslkg:PathMovement, skos:Concept ;
+    skos:prefLabel "Z-shaped"@en ;
+    skos:notation "Z-shaped" ;
+    skos:inScheme data:path-movement-scheme .
+
+data:major-location-body
+    a aslkg:MajorLocation, skos:Concept ;
+    skos:prefLabel "Body"@en ;
+    skos:notation "Body" ;
+    skos:inScheme data:major-location-scheme .
+
+data:major-location-hand
+    a aslkg:MajorLocation, skos:Concept ;
+    skos:prefLabel "Hand"@en ;
+    skos:notation "Hand" ;
+    skos:inScheme data:major-location-scheme .
+
+data:major-location-head
+    a aslkg:MajorLocation, skos:Concept ;
+    skos:prefLabel "Head"@en ;
+    skos:notation "Head" ;
+    skos:inScheme data:major-location-scheme .
+
+data:major-location-neutral
+    a aslkg:MajorLocation, skos:Concept ;
+    skos:prefLabel "Neutral"@en ;
+    skos:notation "Neutral" ;
+    skos:inScheme data:major-location-scheme .
+
+data:minor-location-body-away
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Body Away"@en ;
+    skos:notation "Body Away" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-cheek-nose
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Cheek Nose"@en ;
+    skos:notation "Cheek Nose" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-chin
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Chin"@en ;
+    skos:notation "Chin" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-eye
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Eye"@en ;
+    skos:notation "Eye" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-finger-back
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Finger Back"@en ;
+    skos:notation "Finger Back" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-finger-radial
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Finger Radial"@en ;
+    skos:notation "Finger Radial" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-finger-tip
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Finger Tip"@en ;
+    skos:notation "Finger Tip" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-forehead
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Forehead"@en ;
+    skos:notation "Forehead" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-hand-away
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Hand Away"@en ;
+    skos:notation "Hand Away" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-head-away
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Head Away"@en ;
+    skos:notation "Head Away" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-mouth
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Mouth"@en ;
+    skos:notation "Mouth" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-neutral
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Neutral"@en ;
+    skos:notation "Neutral" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-other
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Other"@en ;
+    skos:notation "Other" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-palm
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Palm"@en ;
+    skos:notation "Palm" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-palm-back
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Palm Back"@en ;
+    skos:notation "Palm Back" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-shoulder
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Shoulder"@en ;
+    skos:notation "Shoulder" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:minor-location-torso-top
+    a aslkg:MinorLocation, skos:Concept ;
+    skos:prefLabel "Torso Top"@en ;
+    skos:notation "Torso Top" ;
+    skos:inScheme data:minor-location-scheme .
+
+data:nondominant-status-dominance-condition-violation
+    a aslkg:NondominantHandConfigurationStatus, skos:Concept ;
+    skos:prefLabel "Dominance Condition Violation"@en ;
+    skos:notation "Dominance Condition Violation" ;
+    skos:inScheme data:nondominant-status-scheme .
+
+data:entry-angry
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "angry" ;
+    ontolex:evokes data:concept-angry ;
+    ontolex:lexicalForm data:form-angry ;
+    vartrans:translatableAs data:entry-angry-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-emotion ;
+    aslkg:frequency "4.96"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "2.741"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=angry> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-angry
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-5 ;
+    aslkg:nondominantHandshape data:handshape-5 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-body ;
+    aslkg:minorLocation data:minor-location-torso-top ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-bird
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "bird" ;
+    ontolex:evokes data:concept-bird ;
+    ontolex:lexicalForm data:form-bird ;
+    vartrans:translatableAs data:entry-bird-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-animal ;
+    aslkg:frequency "5.161"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.553"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=bird> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-bird
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-g ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-mouth ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-boss
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "boss" ;
+    ontolex:evokes data:concept-boss ;
+    ontolex:lexicalForm data:form-boss ;
+    vartrans:translatableAs data:entry-boss-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-people ;
+    aslkg:frequency "5.24"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.8"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=boss> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-boss
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-curved-5 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-body ;
+    aslkg:minorLocation data:minor-location-shoulder ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 4  .
+
+data:entry-corn-2
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "corn_2" ;
+    ontolex:evokes data:concept-corn-2 ;
+    ontolex:lexicalForm data:form-corn-2 ;
+    vartrans:translatableAs data:entry-corn-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-food ;
+    aslkg:frequency "2"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "3.692"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=corn_2> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-corn-2
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-curved-5 ;
+    aslkg:nondominantHandshape data:handshape-curved-5 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-head-away ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 4  .
+
+data:entry-dinosaur
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "dinosaur" ;
+    ontolex:evokes data:concept-dinosaur ;
+    ontolex:lexicalForm data:form-dinosaur ;
+    vartrans:translatableAs data:entry-dinosaur-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-animal ;
+    aslkg:frequency "2.333"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "3.564"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=dinosaur> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-dinosaur
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-o ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 4  .
+
+data:entry-duck
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "duck" ;
+    ontolex:evokes data:concept-duck ;
+    ontolex:lexicalForm data:form-duck ;
+    vartrans:translatableAs data:entry-duck-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-animal ;
+    aslkg:frequency "3.37"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.5"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=duck> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-duck
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-flat-h ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-mouth ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-engineer
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "engineer" ;
+    ontolex:evokes data:concept-engineer ;
+    ontolex:lexicalForm data:form-engineer ;
+    vartrans:translatableAs data:entry-engineer-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-people ;
+    aslkg:frequency "3.48"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.857"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=engineer> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-engineer
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-dominance-violation ;
+    aslkg:dominantHandshape data:handshape-y ;
+    aslkg:nondominantHandConfigurationStatus data:nondominant-status-dominance-condition-violation ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-p ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected false ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-finger-tip ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 0  .
+
+data:entry-happy
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "happy" ;
+    ontolex:evokes data:concept-happy ;
+    ontolex:lexicalForm data:form-happy ;
+    vartrans:translatableAs data:entry-happy-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-emotion ;
+    aslkg:frequency "5.7"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "3.25"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=happy> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-happy
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-open-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-body ;
+    aslkg:minorLocation data:minor-location-torso-top ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 4  .
+
+data:entry-inside
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "inside" ;
+    ontolex:evokes data:concept-inside ;
+    ontolex:lexicalForm data:form-inside ;
+    vartrans:translatableAs data:entry-inside-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-locative ;
+    aslkg:frequency "5.536"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "5.55"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=inside> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-inside
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-asymmetrical-same-handshape ;
+    aslkg:dominantHandshape data:handshape-o ;
+    aslkg:nondominantHandshape data:handshape-o ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-other ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-italy
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "italy" ;
+    ontolex:evokes data:concept-italy ;
+    ontolex:lexicalForm data:form-italy ;
+    vartrans:translatableAs data:entry-italy-en ;
+    lexinfo:partOfSpeech lexinfo:properNoun ;
+    aslkg:semanticField data:semantic-field-place ;
+    aslkg:frequency "2.92"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.733"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=italy> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-italy
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-curved-l ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-z-shaped ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-japan
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "japan" ;
+    ontolex:evokes data:concept-japan ;
+    ontolex:lexicalForm data:form-japan ;
+    vartrans:translatableAs data:entry-japan-en ;
+    lexinfo:partOfSpeech lexinfo:properNoun ;
+    aslkg:semanticField data:semantic-field-place ;
+    aslkg:frequency "2.565"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.114"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=japan> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-japan
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-g ;
+    aslkg:nondominantHandshape data:handshape-g ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 6  .
+
+data:entry-lobster
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "lobster" ;
+    ontolex:evokes data:concept-lobster ;
+    ontolex:lexicalForm data:form-lobster ;
+    vartrans:translatableAs data:entry-lobster-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-animal ;
+    aslkg:frequency "2.923"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.833"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=lobster> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-lobster
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-o ;
+    aslkg:nondominantHandshape data:handshape-o ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-mouse
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "mouse" ;
+    ontolex:evokes data:concept-mouse ;
+    ontolex:lexicalForm data:form-mouse ;
+    vartrans:translatableAs data:entry-mouse-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-animal ;
+    aslkg:frequency "3.36"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "2.952"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=mouse> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-mouse
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-1 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-cheek-nose ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 15  .
+
+data:entry-nephew
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "nephew" ;
+    ontolex:evokes data:concept-nephew ;
+    ontolex:lexicalForm data:form-nephew ;
+    vartrans:translatableAs data:entry-nephew-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-people ;
+    aslkg:frequency "2.621"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.108"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=nephew> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-nephew
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-flat-n ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-head-away ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 0  .
+
+data:entry-new-york
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "new_york" ;
+    ontolex:evokes data:concept-new-york ;
+    ontolex:lexicalForm data:form-new-york ;
+    vartrans:translatableAs data:entry-new-york-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-place ;
+    aslkg:frequency "3.68"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=new_york> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-new-york
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-asymmetrical-different-handshape ;
+    aslkg:dominantHandshape data:handshape-y ;
+    aslkg:nondominantHandshape data:handshape-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-p ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected false ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-palm ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-next-to
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "next_to" ;
+    ontolex:evokes data:concept-next-to ;
+    ontolex:lexicalForm data:form-next-to ;
+    vartrans:translatableAs data:entry-next-to-en ;
+    lexinfo:partOfSpeech data:part-of-speech-minor ;
+    aslkg:semanticField data:semantic-field-locative ;
+    aslkg:frequency "4.704"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "5.382"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=next_to> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-next-to
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-asymmetrical-same-handshape ;
+    aslkg:dominantHandshape data:handshape-flat-b ;
+    aslkg:nondominantHandshape data:handshape-flat-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-finger-back ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-one
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "one" ;
+    ontolex:evokes data:concept-one ;
+    ontolex:lexicalForm data:form-one ;
+    vartrans:translatableAs data:entry-one-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-number ;
+    aslkg:frequency "6.148"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "6.97"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=one> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-one
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-1 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 22  .
+
+data:entry-onion
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "onion" ;
+    ontolex:evokes data:concept-onion ;
+    ontolex:lexicalForm data:form-onion ;
+    vartrans:translatableAs data:entry-onion-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-food ;
+    aslkg:frequency "5.28"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.286"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=onion> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-onion
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-bent-1 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-eye ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-over
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "over" ;
+    ontolex:evokes data:concept-over ;
+    ontolex:lexicalForm data:form-over ;
+    vartrans:translatableAs data:entry-over-en ;
+    lexinfo:partOfSpeech data:part-of-speech-minor ;
+    aslkg:semanticField data:semantic-field-locative ;
+    aslkg:frequency "5.074"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "0"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=over> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-over
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-asymmetrical-same-handshape ;
+    aslkg:dominantHandshape data:handshape-closed-b ;
+    aslkg:nondominantHandshape data:handshape-closed-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-finger-radial ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-philadelphia
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "philadelphia" ;
+    ontolex:evokes data:concept-philadelphia ;
+    ontolex:lexicalForm data:form-philadelphia ;
+    vartrans:translatableAs data:entry-philadelphia-en ;
+    lexinfo:partOfSpeech lexinfo:properNoun ;
+    aslkg:semanticField data:semantic-field-place ;
+    aslkg:frequency "3.37"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.261"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=philadelphia> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-philadelphia
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-p ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-back-and-forth ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 5 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-potato
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "potato" ;
+    ontolex:evokes data:concept-potato ;
+    ontolex:lexicalForm data:form-potato ;
+    vartrans:translatableAs data:entry-potato-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-food ;
+    aslkg:frequency "4.8"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.143"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=potato> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-potato
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-asymmetrical-different-handshape ;
+    aslkg:dominantHandshape data:handshape-bent-v ;
+    aslkg:nondominantHandshape data:handshape-c ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-palm-back ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 0  .
+
+data:entry-russia-2
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "russia_2" ;
+    ontolex:evokes data:concept-russia ;
+    ontolex:lexicalForm data:form-russia-2 ;
+    vartrans:translatableAs data:entry-russia-en ;
+    lexinfo:partOfSpeech lexinfo:properNoun ;
+    aslkg:semanticField data:semantic-field-place ;
+    aslkg:frequency "3.111"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.613"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=russia_2> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-russia-2
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-1 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-back-and-forth ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-mouth ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 16  .
+
+data:entry-sad
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "sad" ;
+    ontolex:evokes data:concept-sad ;
+    ontolex:lexicalForm data:form-sad ;
+    vartrans:translatableAs data:entry-sad-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-emotion ;
+    aslkg:frequency "5.24"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "5.8"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=sad> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-sad
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-5 ;
+    aslkg:nondominantHandshape data:handshape-5 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-head-away ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-spaghetti
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "spaghetti" ;
+    ontolex:evokes data:concept-spaghetti ;
+    ontolex:lexicalForm data:form-spaghetti ;
+    vartrans:translatableAs data:entry-spaghetti-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-food ;
+    aslkg:frequency "3.935"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "2.718"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=spaghetti> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-spaghetti
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-i ;
+    aslkg:nondominantHandshape data:handshape-i ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-p ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected false ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-circular ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-squirrel
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "squirrel" ;
+    ontolex:evokes data:concept-squirrel ;
+    ontolex:lexicalForm data:form-squirrel ;
+    vartrans:translatableAs data:entry-squirrel-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-animal ;
+    aslkg:frequency "2.8"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "2.917"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=squirrel> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-squirrel
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-dominance-violation ;
+    aslkg:dominantHandshape data:handshape-bent-v ;
+    aslkg:nondominantHandConfigurationStatus data:nondominant-status-dominance-condition-violation ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-finger-tip ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-straight
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "straight" ;
+    ontolex:evokes data:concept-straight ;
+    ontolex:lexicalForm data:form-straight ;
+    vartrans:translatableAs data:entry-straight-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-attribute ;
+    aslkg:frequency "5.571"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "6.16"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=straight> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-straight
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-closed-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-forehead ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 8  .
+
+data:entry-strawberry
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "strawberry" ;
+    ontolex:evokes data:concept-strawberry ;
+    ontolex:lexicalForm data:form-strawberry ;
+    vartrans:translatableAs data:entry-strawberry-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-food ;
+    aslkg:frequency "2.524"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.595"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=strawberry> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-strawberry
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-f ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-mouth ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 7  .
+
+data:entry-strawberry-2
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "strawberry_2" ;
+    ontolex:evokes data:concept-strawberry-2 ;
+    ontolex:lexicalForm data:form-strawberry-2 ;
+    vartrans:translatableAs data:entry-strawberry-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-food ;
+    aslkg:frequency "5.667"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.292"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=strawberry_2> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-strawberry-2
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-f ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-mouth ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-strong
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "strong" ;
+    ontolex:evokes data:concept-strong ;
+    ontolex:lexicalForm data:form-strong ;
+    vartrans:translatableAs data:entry-strong-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-attribute ;
+    aslkg:frequency "4.926"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "6.55"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=strong> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-strong
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-s ;
+    aslkg:nondominantHandshape data:handshape-s ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-body ;
+    aslkg:minorLocation data:minor-location-body-away ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 9  .
+
+data:entry-stupid-1
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "stupid_1" ;
+    ontolex:evokes data:concept-stupid-1 ;
+    ontolex:lexicalForm data:form-stupid-1 ;
+    vartrans:translatableAs data:entry-stupid-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-attribute ;
+    aslkg:frequency "4.1"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "3.767"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=stupid_1> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-stupid-1
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-v ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-forehead ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 3  .
+
+data:entry-stupid-2
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "stupid_2" ;
+    ontolex:evokes data:concept-stupid-2 ;
+    ontolex:lexicalForm data:form-stupid-2 ;
+    vartrans:translatableAs data:entry-stupid-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-attribute ;
+    aslkg:frequency "4.633"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.161"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=stupid_2> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-stupid-2
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-g ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-head-away ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-sushi
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "sushi" ;
+    ontolex:evokes data:concept-sushi ;
+    ontolex:lexicalForm data:form-sushi ;
+    vartrans:translatableAs data:entry-sushi-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-food ;
+    aslkg:frequency "4.269"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.32"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=sushi> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-sushi
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-asymmetrical-different-handshape ;
+    aslkg:dominantHandshape data:handshape-h ;
+    aslkg:nondominantHandshape data:handshape-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-palm ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 7  .
+
+data:entry-sweep
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "sweep" ;
+    ontolex:evokes data:concept-sweep ;
+    ontolex:lexicalForm data:form-sweep ;
+    vartrans:translatableAs data:entry-sweep-en ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    aslkg:semanticField data:semantic-field-event ;
+    aslkg:frequency "3.259"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.6"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=sweep> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-sweep
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-asymmetrical-same-handshape ;
+    aslkg:dominantHandshape data:handshape-open-b ;
+    aslkg:nondominantHandshape data:handshape-open-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-palm ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 11  .
+
+data:entry-third-1
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "third_1" ;
+    ontolex:evokes data:concept-third ;
+    ontolex:lexicalForm data:form-third-1 ;
+    vartrans:translatableAs data:entry-third-en ;
+    lexinfo:partOfSpeech lexinfo:numeral ;
+    aslkg:semanticField data:semantic-field-number ;
+    aslkg:frequency "4.481"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.065"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=third_1> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-third-1
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-3 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 3  .
+
+data:entry-third-2
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "third_2" ;
+    ontolex:evokes data:concept-third ;
+    ontolex:lexicalForm data:form-third-2 ;
+    vartrans:translatableAs data:entry-third-en ;
+    lexinfo:partOfSpeech lexinfo:numeral ;
+    aslkg:semanticField data:semantic-field-number ;
+    aslkg:frequency "4.4"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "3.36"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=third_2> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-third-2
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-3 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 3  .
+
+data:entry-three
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "three" ;
+    ontolex:evokes data:concept-three ;
+    ontolex:lexicalForm data:form-three ;
+    vartrans:translatableAs data:entry-three-en ;
+    lexinfo:partOfSpeech lexinfo:numeral ;
+    aslkg:semanticField data:semantic-field-number ;
+    aslkg:frequency "6.08"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "6.667"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=three> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-three
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-3 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-tiger
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "tiger" ;
+    ontolex:evokes data:concept-tiger ;
+    ontolex:lexicalForm data:form-tiger ;
+    vartrans:translatableAs data:entry-tiger-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-animal ;
+    aslkg:frequency "3.097"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "3.711"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=tiger> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-tiger
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-5 ;
+    aslkg:nondominantHandshape data:handshape-5 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-cheek-nose ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-twins-1
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "twins_1" ;
+    ontolex:evokes data:concept-twins ;
+    ontolex:lexicalForm data:form-twins-1 ;
+    vartrans:translatableAs data:entry-twins-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-people ;
+    aslkg:frequency "3.4"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "2.273"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=twins_1> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-twins-1
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-v ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-z-shaped ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-chin ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 4 ;
+    aslkg:neighborhoodDensity 0  .
+
+data:entry-twins-2
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "twins_2" ;
+    ontolex:evokes data:concept-twins ;
+    ontolex:lexicalForm data:form-twins-2 ;
+    vartrans:translatableAs data:entry-twins-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-people ;
+    aslkg:frequency "3.04"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.48"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=twins_2> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-twins-2
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-baby-o ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-z-shaped ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-chin ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 0  .
+
+data:entry-two
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "two" ;
+    ontolex:evokes data:concept-two ;
+    ontolex:lexicalForm data:form-two ;
+    vartrans:translatableAs data:entry-two-en ;
+    lexinfo:partOfSpeech lexinfo:numeral ;
+    aslkg:semanticField data:semantic-field-number ;
+    aslkg:frequency "5.286"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "6.963"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=two> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-two
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-v ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 7  .
+
+data:entry-under
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "under" ;
+    ontolex:evokes data:concept-under ;
+    ontolex:lexicalForm data:form-under ;
+    vartrans:translatableAs data:entry-under-en ;
+    lexinfo:partOfSpeech data:part-of-speech-minor ;
+    aslkg:semanticField data:semantic-field-locative ;
+    aslkg:frequency "4.406"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "3.968"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=under> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-under
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-asymmetrical-different-handshape ;
+    aslkg:dominantHandshape data:handshape-a ;
+    aslkg:nondominantHandshape data:handshape-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-t ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected false ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected true ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-hand ;
+    aslkg:minorLocation data:minor-location-hand-away ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 4 ;
+    aslkg:neighborhoodDensity 0  .
+
+data:entry-vacuum
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "vacuum" ;
+    ontolex:evokes data:concept-vacuum ;
+    ontolex:lexicalForm data:form-vacuum ;
+    vartrans:translatableAs data:entry-vacuum-en ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    aslkg:semanticField data:semantic-field-event ;
+    aslkg:frequency "3.692"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.52"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=vacuum> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-vacuum
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-baby-o ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-z-shaped ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 7  .
+
+data:entry-vegetable
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "vegetable" ;
+    ontolex:evokes data:concept-vegetable ;
+    ontolex:lexicalForm data:form-vegetable ;
+    vartrans:translatableAs data:entry-vegetable-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-food ;
+    aslkg:frequency "4.931"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.2"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=vegetable> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-vegetable
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-v ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-im ;
+    aslkg:numberOfSelectedFingers 2 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-mouth ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 1  .
+
+data:entry-waiter
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "waiter" ;
+    ontolex:evokes data:concept-waiter ;
+    ontolex:lexicalForm data:form-waiter ;
+    vartrans:translatableAs data:entry-waiter-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-people ;
+    aslkg:frequency "4.484"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.568"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=waiter> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-waiter
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-open-b ;
+    aslkg:nondominantHandshape data:handshape-open-b ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 0 ;
+    aslkg:neighborhoodDensity 36  .
+
+data:entry-wander
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "wander" ;
+    ontolex:evokes data:concept-wander ;
+    ontolex:lexicalForm data:form-wander ;
+    vartrans:translatableAs data:entry-wander-en ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    aslkg:semanticField data:semantic-field-event ;
+    aslkg:frequency "3.548"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "3.487"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=wander> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-wander
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-1 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-closed ;
+    aslkg:pathMovement data:path-movement-z-shaped ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 3 ;
+    aslkg:neighborhoodDensity 15  .
+
+data:entry-wet
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "wet" ;
+    ontolex:evokes data:concept-wet ;
+    ontolex:lexicalForm data:form-wet ;
+    vartrans:translatableAs data:entry-wet-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-attribute ;
+    aslkg:frequency "4.52"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.7"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=wet> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-wet
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-5 ;
+    aslkg:nondominantHandshape data:handshape-5 ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-imrp ;
+    aslkg:numberOfSelectedFingers 4 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected true ;
+    aslkg:ringSelected true ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact false ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 2  .
+
+data:entry-witch
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "witch" ;
+    ontolex:evokes data:concept-witch ;
+    ontolex:lexicalForm data:form-witch ;
+    vartrans:translatableAs data:entry-witch-en ;
+    lexinfo:partOfSpeech lexinfo:noun ;
+    aslkg:semanticField data:semantic-field-people ;
+    aslkg:frequency "1.739"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "2.762"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=witch> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-witch
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-bent-l ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-curved ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-head-away ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 0  .
+
+data:entry-wrong-1
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "wrong_1" ;
+    ontolex:evokes data:concept-wrong ;
+    ontolex:lexicalForm data:form-wrong-1 ;
+    vartrans:translatableAs data:entry-wrong-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-attribute ;
+    aslkg:frequency "6.08"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.889"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=wrong_1> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-wrong-1
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-y ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-p ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected false ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement true ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-chin ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 6  .
+
+data:entry-wrong-2
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "wrong_2" ;
+    ontolex:evokes data:concept-wrong ;
+    ontolex:lexicalForm data:form-wrong-2 ;
+    vartrans:translatableAs data:entry-wrong-en ;
+    lexinfo:partOfSpeech lexinfo:adjective ;
+    aslkg:semanticField data:semantic-field-attribute ;
+    aslkg:frequency "5.667"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "1.389"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=wrong_2> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-wrong-2
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-one-handed ;
+    aslkg:dominantHandshape data:handshape-y ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-p ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected false ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected true ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-head ;
+    aslkg:minorLocation data:minor-location-chin ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 2 ;
+    aslkg:neighborhoodDensity 3  .
+
+data:entry-zoom-in
+    a ontolex:LexicalEntry, aslkg:SignLexicalEntry ;
+    dct:identifier "zoom_in" ;
+    ontolex:evokes data:concept-zoom-in ;
+    ontolex:lexicalForm data:form-zoom-in ;
+    vartrans:translatableAs data:entry-zoom-in-en ;
+    lexinfo:partOfSpeech lexinfo:verb ;
+    aslkg:semanticField data:semantic-field-event ;
+    aslkg:frequency "3.958"^^xsd:decimal ;
+    aslkg:nonSignerIconicity "4.667"^^xsd:decimal ;
+    foaf:page <https://asl-lex.org/visualization/?sign=zoom_in> ;
+    prov:wasDerivedFrom data:asl-lex-50-dataset .
+
+data:form-zoom-in
+    a ontolex:Form, aslkg:SignForm ;
+    aslkg:signType data:sign-type-symmetrical-or-alternating ;
+    aslkg:dominantHandshape data:handshape-s ;
+    aslkg:nondominantHandshape data:handshape-s ;
+    aslkg:selectedFingerConfiguration data:selected-fingers-i ;
+    aslkg:numberOfSelectedFingers 1 ;
+    aslkg:indexSelected true ;
+    aslkg:middleSelected false ;
+    aslkg:ringSelected false ;
+    aslkg:pinkySelected false ;
+    aslkg:thumbSelected false ;
+    aslkg:thumbPosition data:thumb-position-open ;
+    aslkg:pathMovement data:path-movement-straight ;
+    aslkg:repeatedMovement false ;
+    aslkg:majorLocation data:major-location-neutral ;
+    aslkg:minorLocation data:minor-location-neutral ;
+    aslkg:contact true ;
+    aslkg:phonologicalComplexity 1 ;
+    aslkg:neighborhoodDensity 0  .

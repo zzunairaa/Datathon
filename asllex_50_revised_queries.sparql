@@ -1,0 +1,526 @@
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX lime:    <http://www.w3.org/ns/lemon/lime#>
+PREFIX vartrans:<http://www.w3.org/ns/lemon/vartrans#>
+PREFIX lexinfo: <http://www.lexinfo.net/ontology/3.0/lexinfo#>
+PREFIX skos:    <http://www.w3.org/2004/02/skos/core#>
+PREFIX dct:     <http://purl.org/dc/terms/>
+PREFIX foaf:    <http://xmlns.com/foaf/0.1/>
+PREFIX aslkg:   <https://w3id.org/asl-lex-kg/ontology#>
+PREFIX data:    <https://w3id.org/asl-lex-kg/resource/>
+
+################################################################################
+# 1. Count ASL lexical entries
+################################################################################
+SELECT (COUNT(DISTINCT ?entry) AS ?entryCount)
+WHERE {
+  ?entry a aslkg:SignLexicalEntry .
+};
+
+################################################################################
+# 2. Exact lookup by Entry ID
+# Change "bird" to another Entry ID
+################################################################################
+SELECT ?entry ?lemmaConcept ?translation ?pos ?field ?page
+WHERE {
+  ?entry a aslkg:SignLexicalEntry ;
+         dct:identifier "bird" ;
+         ontolex:evokes ?lemmaConcept ;
+         vartrans:translatableAs ?englishEntry ;
+         lexinfo:partOfSpeech ?pos ;
+         aslkg:semanticField ?fieldResource ;
+         foaf:page ?page .
+
+  ?fieldResource skos:prefLabel ?field .
+
+  ?englishEntry ontolex:lexicalForm ?englishForm .
+  ?englishForm ontolex:writtenRep ?translation .
+};
+
+################################################################################
+# 3. Retrieve the complete lexical + phonological record for one sign
+################################################################################
+SELECT ?id ?lemma ?translation ?pos ?semanticField
+       ?signType ?dominantHandshape ?nondominantHandshape
+       ?selectedFingers ?numberSelected
+       ?indexSelected ?middleSelected ?ringSelected ?pinkySelected ?thumbSelected
+       ?thumbPosition ?pathMovement ?repeatedMovement
+       ?majorLocation ?minorLocation ?contact
+       ?frequency ?iconicity ?complexity ?neighborhoodDensity
+       ?image ?page
+WHERE {
+  ?entry a aslkg:SignLexicalEntry ;
+         dct:identifier ?id ;
+         ontolex:evokes ?lemmaConcept ;
+         ontolex:lexicalForm ?form ;
+         vartrans:translatableAs ?englishEntry ;
+         aslkg:semanticField ?fieldResource ;
+         foaf:page ?page .
+
+  FILTER(LCASE(STR(?id)) = "bird")
+
+  ?lemmaConcept dct:identifier ?lemma .
+  ?fieldResource skos:prefLabel ?semanticField .
+
+  OPTIONAL { ?entry lexinfo:partOfSpeech ?pos . }
+  OPTIONAL { ?entry aslkg:frequency ?frequency . }
+  OPTIONAL { ?entry aslkg:nonSignerIconicity ?iconicity . }
+
+  ?englishEntry ontolex:lexicalForm ?englishForm .
+  ?englishForm ontolex:writtenRep ?translation .
+
+  OPTIONAL {
+    ?form aslkg:signType ?st .
+    ?st skos:prefLabel ?signType .
+  }
+
+  OPTIONAL {
+    ?form aslkg:dominantHandshape ?dh .
+    ?dh skos:prefLabel ?dominantHandshape .
+    OPTIONAL { ?dh foaf:depiction ?image . }
+  }
+
+  OPTIONAL {
+    ?form aslkg:nondominantHandshape ?ndh .
+    ?ndh skos:prefLabel ?nondominantHandshape .
+  }
+
+  OPTIONAL {
+    ?form aslkg:selectedFingerConfiguration ?sf .
+    ?sf skos:notation ?selectedFingers .
+  }
+
+  OPTIONAL { ?form aslkg:numberOfSelectedFingers ?numberSelected . }
+  OPTIONAL { ?form aslkg:indexSelected ?indexSelected . }
+  OPTIONAL { ?form aslkg:middleSelected ?middleSelected . }
+  OPTIONAL { ?form aslkg:ringSelected ?ringSelected . }
+  OPTIONAL { ?form aslkg:pinkySelected ?pinkySelected . }
+  OPTIONAL { ?form aslkg:thumbSelected ?thumbSelected . }
+
+  OPTIONAL {
+    ?form aslkg:thumbPosition ?tp .
+    ?tp skos:prefLabel ?thumbPosition .
+  }
+
+  OPTIONAL {
+    ?form aslkg:pathMovement ?pm .
+    ?pm skos:prefLabel ?pathMovement .
+  }
+
+  OPTIONAL { ?form aslkg:repeatedMovement ?repeatedMovement . }
+
+  OPTIONAL {
+    ?form aslkg:majorLocation ?maj .
+    ?maj skos:prefLabel ?majorLocation .
+  }
+
+  OPTIONAL {
+    ?form aslkg:minorLocation ?min .
+    ?min skos:prefLabel ?minorLocation .
+  }
+
+  OPTIONAL { ?form aslkg:contact ?contact . }
+  OPTIONAL { ?form aslkg:phonologicalComplexity ?complexity . }
+  OPTIONAL { ?form aslkg:neighborhoodDensity ?neighborhoodDensity . }
+};
+
+################################################################################
+# 4. Find all entries sharing the same Lemma ID
+# Example: "wrong" -> wrong_1, wrong_2
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  data:concept-wrong a ontolex:LexicalConcept .
+
+  ?entry a aslkg:SignLexicalEntry ;
+         ontolex:evokes data:concept-wrong ;
+         dct:identifier ?entryId .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 5. Generic shared-lemma lookup by literal Lemma ID
+################################################################################
+SELECT ?lemma ?entry ?entryId
+WHERE {
+  ?concept a ontolex:LexicalConcept ;
+           dct:identifier ?lemma .
+
+  ?entry ontolex:evokes ?concept ;
+         dct:identifier ?entryId .
+
+  FILTER(LCASE(STR(?lemma)) = "wrong")
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 6. Find ASL entries by dominant English translation
+################################################################################
+SELECT ?entry ?entryId ?translation
+WHERE {
+  ?entry a aslkg:SignLexicalEntry ;
+         dct:identifier ?entryId ;
+         vartrans:translatableAs ?englishEntry .
+
+  ?englishEntry ontolex:lexicalForm ?englishForm .
+  ?englishForm ontolex:writtenRep ?translation .
+
+  FILTER(LCASE(STR(?translation)) = "wrong")
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 7. Find all nouns
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry a aslkg:SignLexicalEntry ;
+         dct:identifier ?entryId ;
+         lexinfo:partOfSpeech lexinfo:noun .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 8. Find signs in a semantic field
+# Example: Animal
+################################################################################
+SELECT ?entry ?entryId ?fieldLabel
+WHERE {
+  ?entry a aslkg:SignLexicalEntry ;
+         dct:identifier ?entryId ;
+         aslkg:semanticField ?field .
+
+  ?field skos:prefLabel ?fieldLabel .
+
+  FILTER(LCASE(STR(?fieldLabel)) = "animal")
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 9. One-handed signs
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:signType ?signType .
+  ?signType skos:prefLabel "One Handed"@en .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 10. One-handed Animal signs
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         aslkg:semanticField ?field ;
+         ontolex:lexicalForm ?form .
+
+  ?field skos:prefLabel "Animal"@en .
+
+  ?form aslkg:signType ?signType .
+  ?signType skos:prefLabel "One Handed"@en .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 11. Find signs by dominant handshape
+# Example: g
+################################################################################
+SELECT ?entry ?entryId ?image
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:dominantHandshape ?handshape .
+  ?handshape skos:notation "g" .
+
+  OPTIONAL { ?handshape foaf:depiction ?image . }
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 12. Find signs by path movement
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:pathMovement ?movement .
+  ?movement skos:prefLabel "Straight"@en .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 13. Find signs by major and minor location
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:majorLocation ?major ;
+        aslkg:minorLocation ?minor .
+
+  ?major skos:prefLabel "Head"@en .
+  ?minor skos:prefLabel "Mouth"@en .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 14. Find signs with contact and repeated movement
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:contact true ;
+        aslkg:repeatedMovement true .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 15. Find signs with exactly one selected finger
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:numberOfSelectedFingers 1 .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 16. Find signs where only the index finger is selected
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:indexSelected true ;
+        aslkg:middleSelected false ;
+        aslkg:ringSelected false ;
+        aslkg:pinkySelected false ;
+        aslkg:thumbSelected false .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 17. Find signs with high frequency
+# Change threshold as needed
+################################################################################
+SELECT ?entry ?entryId ?frequency
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         aslkg:frequency ?frequency .
+
+  FILTER(?frequency >= 5.0)
+}
+ORDER BY DESC(?frequency);
+
+################################################################################
+# 18. Find highly iconic signs
+################################################################################
+SELECT ?entry ?entryId ?iconicity
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         aslkg:nonSignerIconicity ?iconicity .
+
+  FILTER(?iconicity >= 5.0)
+}
+ORDER BY DESC(?iconicity);
+
+################################################################################
+# 19. Find phonologically complex signs
+################################################################################
+SELECT ?entry ?entryId ?complexity
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:phonologicalComplexity ?complexity .
+
+  FILTER(?complexity >= 2)
+}
+ORDER BY DESC(?complexity);
+
+################################################################################
+# 20. Find signs with dense phonological neighborhoods
+################################################################################
+SELECT ?entry ?entryId ?density
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:neighborhoodDensity ?density .
+
+  FILTER(?density >= 5)
+}
+ORDER BY DESC(?density);
+
+################################################################################
+# 21. Phonological similarity to a target sign
+# Score based on shared handshape, movement, major location, minor location,
+# sign type, thumb position, selected-finger configuration and contact.
+# Change "bird" to any Entry ID.
+################################################################################
+SELECT ?candidate ?candidateId
+       (COUNT(DISTINCT ?sharedFeature) AS ?similarityScore)
+WHERE {
+  ?target dct:identifier "bird" ;
+          ontolex:lexicalForm ?targetForm .
+
+  ?candidate dct:identifier ?candidateId ;
+             ontolex:lexicalForm ?candidateForm .
+
+  FILTER(?candidate != ?target)
+
+  {
+    ?targetForm aslkg:dominantHandshape ?v .
+    ?candidateForm aslkg:dominantHandshape ?v .
+    BIND("dominantHandshape" AS ?sharedFeature)
+  }
+  UNION
+  {
+    ?targetForm aslkg:pathMovement ?v .
+    ?candidateForm aslkg:pathMovement ?v .
+    BIND("pathMovement" AS ?sharedFeature)
+  }
+  UNION
+  {
+    ?targetForm aslkg:majorLocation ?v .
+    ?candidateForm aslkg:majorLocation ?v .
+    BIND("majorLocation" AS ?sharedFeature)
+  }
+  UNION
+  {
+    ?targetForm aslkg:minorLocation ?v .
+    ?candidateForm aslkg:minorLocation ?v .
+    BIND("minorLocation" AS ?sharedFeature)
+  }
+  UNION
+  {
+    ?targetForm aslkg:signType ?v .
+    ?candidateForm aslkg:signType ?v .
+    BIND("signType" AS ?sharedFeature)
+  }
+  UNION
+  {
+    ?targetForm aslkg:thumbPosition ?v .
+    ?candidateForm aslkg:thumbPosition ?v .
+    BIND("thumbPosition" AS ?sharedFeature)
+  }
+  UNION
+  {
+    ?targetForm aslkg:selectedFingerConfiguration ?v .
+    ?candidateForm aslkg:selectedFingerConfiguration ?v .
+    BIND("selectedFingerConfiguration" AS ?sharedFeature)
+  }
+  UNION
+  {
+    ?targetForm aslkg:contact ?v .
+    ?candidateForm aslkg:contact ?v .
+    BIND("contact" AS ?sharedFeature)
+  }
+}
+GROUP BY ?candidate ?candidateId
+ORDER BY DESC(?similarityScore) ?candidateId;
+
+################################################################################
+# 22. Semantic similarity through shared semantic field
+################################################################################
+SELECT DISTINCT ?targetId ?relatedId ?fieldLabel
+WHERE {
+  ?target dct:identifier "bird" ;
+          aslkg:semanticField ?field .
+
+  ?related dct:identifier ?relatedId ;
+           aslkg:semanticField ?field .
+
+  ?field skos:prefLabel ?fieldLabel .
+
+  BIND("bird" AS ?targetId)
+  FILTER(?related != ?target)
+}
+ORDER BY ?relatedId;
+
+################################################################################
+# 23. Combined semantic + phonological search
+# Example: Animal signs at Head location
+################################################################################
+SELECT ?entry ?entryId ?handshapeLabel
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         aslkg:semanticField ?field ;
+         ontolex:lexicalForm ?form .
+
+  ?field skos:prefLabel "Animal"@en .
+
+  ?form aslkg:majorLocation ?location ;
+        aslkg:dominantHandshape ?handshape .
+
+  ?location skos:prefLabel "Head"@en .
+  ?handshape skos:prefLabel ?handshapeLabel .
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 24. Entries that have no path-movement value
+################################################################################
+SELECT ?entry ?entryId
+WHERE {
+  ?entry dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  FILTER NOT EXISTS {
+    ?form aslkg:pathMovement ?movement .
+  }
+}
+ORDER BY ?entryId;
+
+################################################################################
+# 25. Show every shared Lemma ID with more than one ASL entry
+################################################################################
+SELECT ?lemma
+       (COUNT(DISTINCT ?entry) AS ?entryCount)
+       (GROUP_CONCAT(DISTINCT ?entryId; separator=", ") AS ?entries)
+WHERE {
+  ?concept a ontolex:LexicalConcept ;
+           dct:identifier ?lemma .
+
+  ?entry ontolex:evokes ?concept ;
+         dct:identifier ?entryId .
+}
+GROUP BY ?lemma
+HAVING(COUNT(DISTINCT ?entry) > 1)
+ORDER BY DESC(?entryCount);
+
+################################################################################
+# 26. Count controlled vocabulary resources
+################################################################################
+SELECT
+  (COUNT(DISTINCT ?handshape) AS ?handshapeCount)
+  (COUNT(DISTINCT ?movement) AS ?movementCount)
+  (COUNT(DISTINCT ?majorLocation) AS ?majorLocationCount)
+  (COUNT(DISTINCT ?minorLocation) AS ?minorLocationCount)
+  (COUNT(DISTINCT ?semanticField) AS ?semanticFieldCount)
+WHERE {
+  OPTIONAL { ?handshape a aslkg:Handshape . }
+  OPTIONAL { ?movement a aslkg:PathMovement . }
+  OPTIONAL { ?majorLocation a aslkg:MajorLocation . }
+  OPTIONAL { ?minorLocation a aslkg:MinorLocation . }
+  OPTIONAL { ?semanticField a aslkg:SemanticField . }
+};
+
+################################################################################
+# 27. Count all triples
+################################################################################
+SELECT (COUNT(*) AS ?tripleCount)
+WHERE {
+  ?s ?p ?o .
+};
