@@ -375,18 +375,6 @@ Potential extensions include:
 - support for more complex cross-modal and linguistic queries
 - extension to additional sign languages
 
-## Acknowledgements
-
-Developed for the **SD-LLOD-26 Datathon** with guidance from the project mentors:
-
-- Andon Tchechmedjiev
-- Armando Stellato
-- Blerina Spahiu
-
-## Authors
-
-**Zunaira Hasnain** and project collaborators.
-
 ---
 
 **ASL Knowledge Explorer** · OntoLex-Lemon · RDF · SPARQL · LLOD · Multimodal Sign Language Data
