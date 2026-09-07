@@ -1,491 +1,63 @@
-<img width="1600" height="1272" alt="image" src="https://github.com/user-attachments/assets/7e148421-92f2-4bd0-a6a8-04b2820aeed8" />
+<img width="1600" height="1272" alt="ONTOSIGN — ASL Knowledge Explorer" src="https://github.com/user-attachments/assets/7e148421-92f2-4bd0-a6a8-04b2820aeed8" />
 
+# ASL Knowledge Explorer
 
-# ONTOSIGN — ASL Knowledge Explorer
+**ASL Knowledge Explorer** is a multimodal Linguistic Linked Open Data (LLOD) prototype for exploring American Sign Language (ASL) lexical, semantic, phonological, psycholinguistic, and multimedia information through natural-language questions.
 
-### Sign Language Accessibility Linked Open Data
+The application converts a user's natural-language question into **schema-grounded SPARQL**, validates the generated query, and retrieves matching signs either from a configured RDF/SPARQL endpoint or from the included 50-sign ASL-LEX pilot dataset.
 
-**ONTOSIGN** is a Linked Open Data prototype for exploring American Sign Language lexical, semantic, and phonological information.
+> Developed as part of the **SD-LLOD-26 Datathon** project: *Building a Multimodal Linked Data Framework for Sign Language Lexicons*.
 
-The project transforms a curated subset of **ASL-LEX 2.0** into an **RDF / OntoLex-Lemon knowledge graph** and provides a web interface where users can ask questions in natural language and translate them into schema-grounded **SPARQL queries**.
+## Overview
 
-Developed for the **SD-LLOD 2026 Datathon**.
+The project demonstrates how sign-language lexical resources can be represented as linked data using **RDF** and **OntoLex-Lemon**, while remaining accessible to users who do not know SPARQL.
 
----
+Example questions include:
 
-## What is this project?
+- `Show me Food signs`
+- `Which one-handed signs are articulated at the head?`
+- `Which signs share the lemma wrong?`
+- `Show Animal signs articulated at the head and their handshapes`
+- `Which signs do not have a path movement?`
+- `Show signs with frequency at least 5`
 
-ASL-LEX 2.0 contains rich lexical and phonological information about American Sign Language, but the original resource is primarily tabular.
+The interface follows the pipeline:
 
-ONTOSIGN explores how this data can instead be represented as an interconnected semantic knowledge graph.
+**Natural Language → NL-to-SPARQL → Knowledge Graph → Linked Results**
 
-The current prototype contains:
+## Features
 
-- 50 curated ASL signs
-- RDF representation in Turtle
-- OntoLex-Lemon lexical modelling
-- explicit phonological feature modelling
-- semantic-field representation
-- SPARQL competency queries
-- natural-language → SPARQL translation
-- SPARQL safety validation
-- optional live RDF endpoint execution
-- offline querying over the included dataset
-- a Next.js exploration interface
-
----
-
-## Motivation
-
-ASL-LEX contains rich information such as:
-
-- lexical entries
-- English translations
-- semantic fields
-- handshapes
-- selected fingers
-- movement
-- articulation locations
-- frequency
-- iconicity
-- phonological complexity
-- neighborhood density
-
-In a CSV, these values mainly exist as columns.
-
-ONTOSIGN converts them into explicit semantic relationships.
-
-Instead of:
-
-```text
-bird | Animal | g | Head | Mouth | ...
-```
-
-we can model:
-
-```text
-bird
- ├── evokes → bird concept
- ├── semantic field → Animal
- └── lexical form → bird form
-                        ├── dominant handshape → G
-                        ├── major location → Head
-                        ├── minor location → Mouth
-                        └── repeated movement → true
-```
-
-This makes the data interoperable and allows semantic and phonological properties to be queried together.
-
----
-
-## Knowledge Graph Model
-
-The core model follows **OntoLex-Lemon**.
-
-```text
-LexicalConcept
-      ↑
-      │ ontolex:evokes
-      │
-SignLexicalEntry
-      │
-      │ ontolex:lexicalForm
-      ↓
-   SignForm
-```
-
-The repository defines:
-
-```text
-aslkg:SignLexicalEntry
-    rdfs:subClassOf ontolex:LexicalEntry
-
-aslkg:SignForm
-    rdfs:subClassOf ontolex:Form
-```
-
-A sign therefore has a lexical identity, a semantic concept, and a form containing its phonological characteristics.
-
----
-
-## What is represented in the graph?
-
-The graph contains several kinds of nodes.
-
-### Lexical resources
-
-- `aslkg:SignLexicalEntry`
-- `ontolex:LexicalConcept`
-- `aslkg:SignForm`
-
-### Semantic resources
-
-- `aslkg:SemanticField`
-
-Examples:
-
-```text
-Animal
-Emotion
-Food
-People
-Place
-Locative
-Event
-Attribute
-Number
-```
-
-### Phonological resources
-
-- `aslkg:SignType`
-- `aslkg:Handshape`
-- `aslkg:SelectedFingerConfiguration`
-- `aslkg:ThumbPosition`
-- `aslkg:PathMovement`
-- `aslkg:MajorLocation`
-- `aslkg:MinorLocation`
-
-The graph also contains numeric and boolean features including:
-
-- number of selected fingers
-- individual selected-finger flags
-- repeated movement
-- contact
-- phonological complexity
-- neighborhood density
-- frequency
-- non-signer iconicity
-
----
-
-## Why use a graph?
-
-The RDF model turns repeated values into shared resources.
-
-For example:
-
-```text
-                aslkg:Head
-                ↑       ↑
-                │       │
-          majorLocation │
-                │       │
-            birdForm   duckForm
-```
-
-Likewise, several signs may share:
-
-- a handshape
-- a location
-- a semantic field
-- a movement type
-- a sign type
-
-The result is an interconnected network rather than 50 isolated rows.
-
-This is what makes graph traversal and SPARQL querying useful.
-
----
-
-## Example: `bird`
-
-One of the signs included in the current dataset is `bird`.
-
-Its data includes approximately the following structure:
-
-```text
-bird
-│
-├── lemma/concept → bird
-├── translation → "bird"
-├── lexical class → Noun
-├── semantic field → Animal
-│
-└── lexical form
-     ├── sign type → One Handed
-     ├── dominant handshape → g
-     ├── selected fingers → i
-     ├── number selected → 1
-     ├── thumb position → Open
-     ├── repeated movement → true
-     ├── major location → Head
-     ├── minor location → Mouth
-     ├── contact → true
-     ├── phonological complexity → 1
-     └── neighborhood density → 1
-```
-
-The entry also links back to the corresponding ASL-LEX visualization page and to an external handshape image.
-
----
-
-## Semantic + Phonological Queries
-
-One goal of the project is to allow properties that normally live in different columns or resources to be queried together.
-
-For example:
-
-> Which ASL signs belong to the semantic field "Animal", and what are their dominant handshapes and major articulation locations?
-
-```sparql
-SELECT ?entry ?entryId ?handshape ?location
-WHERE {
-
-  ?entry a aslkg:SignLexicalEntry ;
-         dct:identifier ?entryId ;
-         aslkg:semanticField ?field ;
-         ontolex:lexicalForm ?form .
-
-  ?field skos:prefLabel "Animal"@en .
-
-  ?form aslkg:dominantHandshape ?hs ;
-        aslkg:majorLocation ?loc .
-
-  ?hs skos:prefLabel ?handshape .
-  ?loc skos:prefLabel ?location .
-}
-ORDER BY ?entryId
-```
-
-The graph traversal is essentially:
-
-```text
-SemanticField
-      ↑
-      │ semanticField
-      │
-LexicalEntry
-      │
-      │ lexicalForm
-      ↓
-    SignForm
-     ↙     ↘
-Handshape  Location
-```
-
----
-
-## Natural Language → SPARQL
-
-The web application allows a user to ask questions such as:
-
-```text
-Show me Food signs
-```
-
-```text
-Which one-handed signs are articulated at the head?
-```
-
-```text
-Show Animal signs articulated at the head and their handshapes
-```
-
-```text
-Which signs do not have a path movement?
-```
-
-```text
-Show signs with frequency at least 5
-```
-
-The application follows this pipeline:
-
-```text
-User question
-      ↓
-Schema-grounded prompt
-      ↓
-NL → SPARQL generation
-      ↓
-SPARQL validation
-      ↓
-RDF endpoint / local data
-      ↓
-Linked result cards
-```
-
----
-
-## LLM Integration
-
-When a `GROQ_API_KEY` is configured, the application uses a Groq-hosted model for natural-language-to-SPARQL generation.
-
-The model is not simply asked to generate arbitrary SPARQL.
-
-It receives the actual ASL-KG schema and explicit constraints describing:
-
-- valid classes
-- valid predicates
-- where entry IDs are stored
-- how lexical concepts are reached
-- how English translations are represented
-- where phonological information belongs
-- which operations are forbidden
-
-This reduces ontology hallucination and keeps generated queries grounded in the project's RDF model.
-
----
-
-## Schema Grounding
-
-The LLM is given the graph structure defined in:
-
-```text
-lib/kg-schema.ts
-```
-
-Important modelling rules include:
-
-```text
-Entry ID
-→ dct:identifier on aslkg:SignLexicalEntry
-```
-
-```text
-Lemma
-→ dct:identifier on the LexicalConcept
-→ reached using ontolex:evokes
-```
-
-```text
-English translation
-→ vartrans:translatableAs
-→ ontolex:lexicalForm
-→ ontolex:writtenRep
-```
-
-```text
-ASL phonology
-→ attached to the SignForm
-→ reached using ontolex:lexicalForm
-```
-
-The prompt explicitly prevents the model from inventing shortcut predicates such as:
-
-```text
-aslkg:entryID
-aslkg:translation
-aslkg:handshape
-aslkg:location
-```
-
-when those properties do not exist in the ontology.
-
----
-
-## SPARQL Safety
-
-Generated queries pass through a validation layer before execution.
-
-The application currently permits only:
-
-```text
-SELECT
-```
-
-queries.
-
-Potentially destructive or external operations are rejected, including:
-
-```text
-INSERT
-DELETE
-DROP
-CLEAR
-LOAD
-CREATE
-MOVE
-COPY
-ADD
-WITH
-SERVICE
-CONSTRUCT
-DESCRIBE
-```
-
-The validator also checks generated `aslkg:` terms against the project's known vocabulary.
-
-This means the demo is designed as a **read-only knowledge explorer**.
-
----
-
-## Two Execution Modes
-
-### 1. Offline / Local Demo
-
-No API keys are required.
-
-The app can use the included 50-sign dataset together with local querying logic.
-
-This means the frontend remains demonstrable even without:
-
-- an LLM API key
-- GraphDB
-- Fuseki
-- Virtuoso
-- another SPARQL server
-
-### 2. Live Knowledge Graph
-
-If a SPARQL endpoint is available, configure:
-
-```env
-SPARQL_ENDPOINT_URL=http://localhost:7200/repositories/your-repository
-```
-
-With a live endpoint, the flow becomes:
-
-```text
-Natural Language
-      ↓
-LLM
-      ↓
-Generated SPARQL
-      ↓
-Validator
-      ↓
-Live RDF Graph
-      ↓
-Results
-```
-
----
+- Natural-language querying of an ASL knowledge graph
+- Schema-grounded **NL → SPARQL** generation
+- **GPT-OSS-20B via Groq** for LLM-based query generation
+- Read-only SPARQL validation before execution
+- OntoLex-Lemon-based RDF representation
+- Lexical and semantic querying
+- Phonological querying, including handshape, movement, location, contact, and sign type
+- Psycholinguistic querying, including frequency, iconicity, complexity, and neighborhood density
+- Multimodal links to ASL-LEX visualization pages and handshape images
+- Optional execution against a live SPARQL endpoint
+- Offline/local fallback using the supplied real 50-sign dataset
+- Generated SPARQL viewer for transparency and debugging
+- Result cards for exploring matching signs
 
 ## Technology Stack
 
-### Frontend
+- **Next.js 15**
+- **React 19**
+- **TypeScript**
+- **Groq SDK**
+- **GPT-OSS-20B**
+- **RDF**
+- **SPARQL**
+- **OntoLex-Lemon**
+- **SKOS**
+- **Linguistic Linked Open Data (LLOD)**
 
-- Next.js
-- React
-- TypeScript
-
-### AI
-
-- Groq SDK
-- schema-grounded NL → SPARQL
-
-### Semantic Web
-
-- RDF
-- Turtle
-- OntoLex-Lemon
-- SKOS
-- VarTrans
-- LexInfo
-- Dublin Core Terms
-- FOAF
-- OWL
-- SPARQL
-
----
-
-## Repository Structure
+## Project Structure
 
 ```text
 asl-knowledge-explorer/
-│
 ├── app/
 │   ├── api/
 │   │   └── ask/
@@ -517,108 +89,306 @@ asl-knowledge-explorer/
 │
 ├── .env.example
 ├── package.json
-├── tsconfig.json
 └── README.md
 ```
 
----
+## Data and Knowledge Graph
 
-## Current Prototype
+The prototype contains a curated **50-sign ASL dataset** together with its RDF representation and competency queries.
 
-The current prototype contains **50 ASL signs** and demonstrates:
+### Included resources
 
-- transformation of ASL-LEX-style data into RDF
-- OntoLex-based lexical modelling
-- explicit phonological feature representation
-- semantic + phonological SPARQL querying
-- graph visualization
-- natural-language-to-SPARQL interaction
-- query validation
-- local and endpoint-backed execution
+| File | Description |
+|---|---|
+| `data/ASLLEX_dataset_50.csv` | Curated 50-sign pilot dataset |
+| `data/asllex_50_revised_ontolex_model.ttl` | RDF/Turtle knowledge graph modeled with OntoLex-Lemon |
+| `data/asllex_50_revised_queries.sparql` | Example and competency SPARQL queries |
 
----
+The model represents information such as:
+
+- lexical entries and lemma concepts
+- English translations
+- lexical class / part of speech
+- semantic fields
+- sign type
+- dominant and nondominant handshape
+- selected fingers
+- thumb position
+- path movement
+- repeated movement
+- major and minor location
+- contact
+- frequency
+- iconicity
+- phonological complexity
+- neighborhood density
+- multimedia references
+
+Semantic and phonological categories are represented as reusable resources and queried through labels or notations rather than being treated only as plain strings.
+
+## Architecture
+
+```text
+User Question
+     │
+     ▼
+Next.js Interface
+     │
+     ▼
+POST /api/ask
+     │
+     ▼
+Schema-Grounded NL → SPARQL
+     │
+     ▼
+Read-Only SPARQL Validation
+     │
+     ├──────────── SPARQL_ENDPOINT_URL configured ────────────┐
+     │                                                        ▼
+     │                                                RDF Knowledge Graph
+     │                                                        │
+     │                                                        ▼
+     └──── no endpoint ──► Local 50-Sign Data Fallback ◄── Results
+                              │
+                              ▼
+                         Result Cards
+```
+
+The application therefore supports multiple operating modes:
+
+1. **Offline demo** — no API key or SPARQL endpoint is required.
+2. **LLM + local data** — Groq generates SPARQL, while result cards are retrieved from the local 50-sign dataset.
+3. **Live RDF knowledge graph** — generated SPARQL is executed against the configured SPARQL endpoint.
+
+## Getting Started
+
+### Prerequisites
+
+Install:
+
+- Node.js 18+ (a current LTS release is recommended)
+- npm
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Start the development server
+
+```bash
+npm run dev
+```
+
+Open:
+
+```text
+http://localhost:3000
+```
+
+The application can run immediately without an API key.
+
+## Enable LLM-Based NL → SPARQL
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+On Windows, you can create `.env.local` manually or run:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+Add your Groq API key:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+```
+
+Restart the development server:
+
+```bash
+npm run dev
+```
+
+When this variable is configured, the application uses **`openai/gpt-oss-20b` through Groq** to translate natural-language questions into SPARQL.
+
+> Never commit `.env.local` or expose your API key publicly.
+
+## Connect a Live SPARQL Endpoint
+
+The included Turtle graph can be loaded into an RDF store such as **GraphDB**, **Apache Jena Fuseki**, or another SPARQL-compatible platform.
+
+Set the query endpoint in `.env.local`:
+
+```env
+SPARQL_ENDPOINT_URL=http://localhost:3030/asl/query
+```
+
+For a local GraphDB repository, use the appropriate SPARQL endpoint URL for your repository.
+
+When `SPARQL_ENDPOINT_URL` is configured, `/api/ask` executes the generated SPARQL against the live RDF graph instead of using the local CSV result layer.
+
+A complete configuration can therefore look like:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+SPARQL_ENDPOINT_URL=your_sparql_query_endpoint
+```
+
+## NL-to-SPARQL Design
+
+The LLM is not asked to generate arbitrary SPARQL. Its prompt is grounded in the actual ASL knowledge-graph schema defined in:
+
+```text
+lib/kg-schema.ts
+```
+
+Few-shot examples in:
+
+```text
+lib/nl-to-sparql.ts
+```
+
+demonstrate several query families, including:
+
+- semantic retrieval
+- phonological retrieval
+- combined semantic + phonological constraints
+- lemma lookup
+- English translation lookup
+- missing-property queries
+- numerical thresholds
+- psycholinguistic constraints
+- neighborhood analysis
+- multimodal retrieval
+
+The generated query is subsequently checked by `lib/validate-sparql.ts` before execution.
+
+## Example Query
+
+Natural-language input:
+
+```text
+Which one-handed signs are articulated at the head?
+```
+
+The system generates a SPARQL query based on the ASL-KG ontology, for example:
+
+```sparql
+PREFIX ontolex: <http://www.w3.org/ns/lemon/ontolex#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX aslkg: <https://w3id.org/asl-lex-kg/ontology#>
+
+SELECT ?entry ?entryId
+WHERE {
+  ?entry a aslkg:SignLexicalEntry ;
+         dct:identifier ?entryId ;
+         ontolex:lexicalForm ?form .
+
+  ?form aslkg:signType ?signTypeResource ;
+        aslkg:majorLocation ?locationResource .
+
+  ?signTypeResource skos:prefLabel "One Handed"@en .
+  ?locationResource skos:prefLabel "Head"@en .
+}
+ORDER BY ?entryId
+```
+
+The matching signs are then displayed as linked result cards in the interface.
+
+## API
+
+### `POST /api/ask`
+
+Request:
+
+```json
+{
+  "question": "Show me Food signs"
+}
+```
+
+The response contains:
+
+- original question
+- generated SPARQL
+- result count
+- matching sign records
+- current execution mode
+- execution note
+
+## Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Updating the Knowledge Graph
+
+If the ontology or RDF model changes, review these files to keep the application aligned with the graph:
+
+- `lib/kg-schema.ts` — ontology/schema grounding supplied to the LLM
+- `lib/nl-to-sparql.ts` — prompt and few-shot query examples
+- `lib/validate-sparql.ts` — SPARQL safety and allowed graph terms
+- `data/asllex_50_revised_ontolex_model.ttl` — RDF/Turtle graph
+- `data/asllex_50_revised_queries.sparql` — competency queries
+
+## Multimodal LLOD
+
+The project goes beyond a conventional lexical table by connecting sign-language entries with multiple dimensions of information.
+
+The RDF graph combines:
+
+**Lexical information** → **semantic concepts** → **phonological form** → **psycholinguistic measures** → **multimedia references**
+
+This enables queries that cross these dimensions, such as retrieving signs from a semantic category while simultaneously filtering by articulation, handshape, movement, frequency, or iconicity.
+
+## Data Attribution
+
+The pilot dataset is derived from **ASL-LEX** resources and is used here for research and datathon prototyping. Multimedia references are represented as external links rather than redistributed ASL-LEX videos.
+
+Users of this repository should consult the original ASL-LEX resource and its licensing/usage conditions before redistributing source data or multimedia material.
+
+## Research Context
+
+This prototype was created for the project:
+
+**Building a Multimodal Linked Data Framework for Sign Language Lexicons**
+
+The broader goal is to investigate how sign-language dictionaries and annotated lexical resources can be represented as **multimodal Linguistic Linked Open Data**, allowing structured semantic and phonological exploration through RDF and SPARQL while providing a natural-language interface for non-SPARQL users.
 
 ## Future Work
 
-### Scale the graph
+Potential extensions include:
 
-Extend from the current **50-sign prototype** to the full **2,723-sign ASL-LEX 2.0 lexicon**.
-
-### Improve ontology alignment
-
-Perform a deeper comparison with earlier sign-language ontologies and determine which concepts or properties should be reused or aligned.
-
-### Sense-level modelling
-
-Refine the distinction between lexical concepts and individual senses.
-
-### Interlink with CILI
-
-Propose and align suitable concepts with the **Collaborative Interlingual Index (CILI)**.
-
-### Multilingual Sign Language WordNet
-
-Connect ASL to **Schulder et al.'s Multilingual Sign Language WordNet**, providing an ASL entry point into the multilingual sign-language Linked Data ecosystem.
-
-### Linguistic Linked Open Data
-
-The long-term goal is to make ASL lexical resources interoperable with the wider **Linguistic Linked Open Data (LLOD)** ecosystem.
-
----
-
-## References
-
-1. Sevcikova Sehyr, Z., Caselli, N., Cohen-Goldberg, A. M., & Emmorey, K. (2021).  
-   **The ASL-LEX 2.0 Project: A Database of Lexical and Phonological Properties for 2,723 Signs in American Sign Language.**
-
-2. Declerck, T. (2022).  
-   **Towards a New Ontology for Sign Languages.**
-
-3. Declerck, T., Troelsgård, T., & Olsen, S. (2023).  
-   **Towards an RDF Representation of the Infrastructure Consisting in Using Wordnets as a Conceptual Interlingua Between Multilingual Sign Language Datasets.**
-
-4. Schulder, M., Bigeard, S., Kopf, M., Hanke, T., et al. (2024).  
-   **Signs and Synonymity: Continuing Development of the Multilingual Sign Language Wordnet.**
-
-5. Kezar, L., Munikote, N., Zeng, Z., Sehyr, Z., Caselli, N., & Thomason, J. (2025).  
-   **The American Sign Language Knowledge Graph: Infusing ASL Models with Linguistic Knowledge.**
-
----
-
-## Team
-
-**Sign Language Modelling & Linking Group**
-
-- Fashad Ahmed Siddique
-- Zunaira Hasnain
-- Oreoluwa Babatunde
-- Luana Nova
-- Nuveyba Ekinci
-
-Developed during **SD-LLOD 2026 — Summer Datathon on Linguistic Linked Open Data**.
-
----
-
-## License
-
-Please refer to the original **ASL-LEX 2.0 licensing and usage conditions** for source data.
-
-Code and ontology licensing for this repository should be specified separately by the project maintainers.
-
----
+- scaling from the 50-sign pilot to a larger sign-language lexicon
+- linking additional sign-language lexical resources
+- richer multimedia annotations
+- external semantic links to multilingual lexical/conceptual resources
+- direct deployment with a public SPARQL endpoint
+- improved NL-to-SPARQL evaluation and error analysis
+- support for more complex cross-modal and linguistic queries
+- extension to additional sign languages
 
 ## Acknowledgements
 
-This project builds upon:
+Developed for the **SD-LLOD-26 Datathon** with guidance from the project mentors:
 
-- ASL-LEX 2.0
-- OntoLex-Lemon
-- Linguistic Linked Open Data
-- prior sign-language RDF and ontology research
-- Multilingual Sign Language WordNet
+- Andon Tchechmedjiev
+- Armando Stellato
+- Blerina Spahiu
+
+## Authors
+
+**Zunaira Hasnain** and project collaborators.
 
 ---
 
-## ONTOSIGN
-
-**From ASL lexical data to an interoperable, queryable knowledge graph.**
+**ASL Knowledge Explorer** · OntoLex-Lemon · RDF · SPARQL · LLOD · Multimodal Sign Language Data
