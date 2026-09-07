@@ -40,7 +40,8 @@ The current pilot contains **50 curated ASL signs** and integrates lexical, sema
 The ASL data is represented as an RDF knowledge graph using **OntoLex-Lemon**, **SKOS**, and related Semantic Web vocabularies. Lexical entries are connected to canonical forms, concepts, semantic fields, phonological properties, psycholinguistic measures, and multimedia references.
 
 <p align="center">
-  <img src="Resources/KG.jpeg" alt="ASL Knowledge Explorer RDF Knowledge Graph" width="900"/>
+  <img src="<img width="1600" height="1272" alt="image" src="https://github.com/user-attachments/assets/0f673f75-198b-4da7-aa2b-e8ff3f0bd00f" />
+" alt="ASL Knowledge Explorer RDF Knowledge Graph" width="900"/>
 </p>
 
 <p align="center"><em>Visualization of a portion of the ASL Knowledge Explorer RDF knowledge graph.</em></p>
