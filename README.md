@@ -1,5 +1,3 @@
-<img width="1600" height="1272" alt="ONTOSIGN — ASL Knowledge Explorer" src="https://github.com/user-attachments/assets/7e148421-92f2-4bd0-a6a8-04b2820aeed8" />
-
 # ASL Knowledge Explorer
 
 **ASL Knowledge Explorer** is a multimodal Linguistic Linked Open Data (LLOD) prototype for exploring American Sign Language (ASL) lexical, semantic, phonological, psycholinguistic, and multimedia information through natural-language questions.
