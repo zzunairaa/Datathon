@@ -1,0 +1,1 @@
+export default function SparqlViewer({sparql}:{sparql:string}){return <details className="sparql"><summary>Generated SPARQL <span>Inspect query</span></summary><pre><code>{sparql}</code></pre></details>}

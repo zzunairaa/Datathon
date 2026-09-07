@@ -1,0 +1,2 @@
+"use client";
+export default function SearchBox({question,setQuestion,onSearch,loading}:{question:string;setQuestion:(s:string)=>void;onSearch:()=>void;loading:boolean}){return <div className="search"><input aria-label="Ask about ASL signs" value={question} onChange={e=>setQuestion(e.target.value)} onKeyDown={e=>e.key==="Enter"&&onSearch()} placeholder="e.g. Show one-handed Food signs articulated at the head"/><button onClick={onSearch} disabled={loading}>{loading?"Querying…":"Ask the graph"}</button></div>}
