@@ -1,10 +1,12 @@
-# ASL Knowledge Explorer
+# ONTOSIGN — ASL Knowledge Explorer
 
 ### 🏆 Winning Project — 6th Summer Datathon on Linguistic Linked Open Data (SD-LLOD-26)
 
-**ASL Knowledge Explorer** is a multimodal Linguistic Linked Open Data (LLOD) prototype for exploring American Sign Language (ASL) lexical, semantic, phonological, psycholinguistic, and multimedia information through natural-language questions.
+**ONTOSIGN / ASL Knowledge Explorer** is a multimodal Linguistic Linked Open Data (LLOD) framework for exploring American Sign Language (ASL) through natural-language queries. It represents lexical, semantic, phonological, psycholinguistic, and multimodal sign-language information as an **OntoLex-Lemon RDF knowledge graph** and provides **LLM-powered natural-language-to-SPARQL querying**.
 
-The project represents sign-language lexical data as an **RDF knowledge graph using OntoLex-Lemon** and provides a natural-language interface that generates **schema-grounded SPARQL**. It was developed during the **6th Summer Datathon on Linguistic Linked Open Data (SD-LLOD-26)**, held from **August 30 to September 4, 2026** at **Villa Cagnola, Gazzada Schianno, Italy**, and was selected as a **winning project**.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://ontosign-jet.vercel.app/)
+
+🚀 **[Try ONTOSIGN Live](https://ontosign-jet.vercel.app/)** — Explore the ASL knowledge graph through natural-language queries and inspect the generated SPARQL.
 
 **Team:** Fashad Ahmed Siddique · Zunaira Hasnain · Oreoluwa Babatunde · Luana Nova · Nuveyba Ekinci
 
