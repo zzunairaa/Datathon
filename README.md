@@ -413,11 +413,11 @@ The datathon brings together researchers and students working with Linguistic Li
 
 ### Team
 
-- **Fashad Ahmed Siddique**
 - **Zunaira Hasnain**
-- **Oreoluwa Babatunde**
 - **Luana Nova**
 - **Nuveyba Ekinci**
+- **Fashad Ahmed Siddique**
+- **Oreoluwa Babatunde**
 
 ### Mentors
 
